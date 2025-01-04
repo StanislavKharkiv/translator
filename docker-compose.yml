@@ -1,0 +1,19 @@
+services:
+  helsinki-nlp:
+    build: ./hugging_face
+    volumes:
+      - ./hugging_face:/app
+    environment:
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+    # ports:
+    #   - "8001:8001"
+  django:
+    build:
+      context: ./django  # Adjust path to your Django app
+    volumes:
+      - ./django:/app  # Mount the Django project
+    ports:
+      - "8000:8000"  # Expose Django app
+    depends_on:
+      - helsinki-nlp  # Ensure the translator service starts first
