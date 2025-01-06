@@ -5,15 +5,18 @@ import requests
 
 @api_view(["POST"])
 def translate(request):
-    # Parse JSON body for 'text' key
     text = request.data.get("text", "")
+    lang_pair = request.data.get("lang_pair", "en-de")
+
     if not text:
         return Response({"error": "No text provided"}, status=400)
 
-    # Forward the text to the translation service
-    response = requests.post("http://helsinki-nlp:8001/translate/", json={"text": text})
-
-    if response.status_code == 200:
+    try:
+        response = requests.post(
+            "http://helsinki-nlp:8001/translate/",
+            json={"text": text, "lang_pair": lang_pair},
+        )
+        response.raise_for_status()
         return Response(response.json())
-    else:
-        return Response({"error": "Translation failed"}, status=response.status_code)
+    except requests.exceptions.RequestException as e:
+        return Response({"error": f"Translation service error: {e}"}, status=400)
