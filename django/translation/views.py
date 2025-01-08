@@ -6,10 +6,10 @@ import requests
 @api_view(["POST"])
 def translate(request):
     text = request.data.get("text", "")
-    lang_pair = request.data.get("lang_pair", "en-de")
+    lang_pair = request.data.get("lang_pair")
 
-    if not text:
-        return Response({"error": "No text provided"}, status=400)
+    if not text or not lang_pair:
+        return Response({"error": "Expected fields text and lang_pair"}, status=400)
 
     try:
         response = requests.post(
@@ -19,4 +19,5 @@ def translate(request):
         response.raise_for_status()
         return Response(response.json())
     except requests.exceptions.RequestException as e:
-        return Response({"error": f"Translation service error: {e}"}, status=400)
+        error_text = e.response.json()['detail'] if 'detail' in e.response.json() else ''
+        return Response({"error": f"Translation service error. {error_text}"}, status=400)

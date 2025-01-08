@@ -21,17 +21,9 @@ models = {
         "model": MarianMTModel.from_pretrained("Helsinki-NLP/opus-mt-en-de"),
         "tokenizer": MarianTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-de"),
     },
-    "en-ru": {
-        "model": MarianMTModel.from_pretrained("Helsinki-NLP/opus-mt-en-ru"),
-        "tokenizer": MarianTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-ru"),
-    },
     "de-en": {
         "model": MarianMTModel.from_pretrained("Helsinki-NLP/opus-mt-de-en"),
         "tokenizer": MarianTokenizer.from_pretrained("Helsinki-NLP/opus-mt-de-en"),
-    },
-    "ru-en": {
-        "model": MarianMTModel.from_pretrained("Helsinki-NLP/opus-mt-ru-en"),
-        "tokenizer": MarianTokenizer.from_pretrained("Helsinki-NLP/opus-mt-ru-en"),
     },
 }
 
@@ -40,9 +32,12 @@ models = {
 async def translate(request: TranslationRequest):
     lang_pair = request.lang_pair
     text = request.text
-
     if lang_pair not in models:
-        raise HTTPException(
+        try: 
+            model = MarianMTModel.from_pretrained(f"Helsinki-NLP/opus-mt-{lang_pair}")
+            tokenizer = MarianTokenizer.from_pretrained(f"Helsinki-NLP/opus-mt-{lang_pair}")
+            models[lang_pair] = {"model": model, "tokenizer": tokenizer}
+        except: raise HTTPException(
             status_code=400, detail=f"Language pair {lang_pair} not supported"
         )
 

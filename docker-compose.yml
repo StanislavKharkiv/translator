@@ -3,17 +3,20 @@ services:
     build: ./hugging_face
     volumes:
       - ./hugging_face:/app
+      - ./data_files:/app/data_files
     environment:
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
-    # ports:
-    #   - "8001:8001"
+    command: uvicorn translate:app --host 0.0.0.0 --port 8001 --reload
+
   django:
     build:
-      context: ./django  # Adjust path to your Django app
+      context: ./django
     volumes:
-      - ./django:/app  # Mount the Django project
+      - ./django:/app
+      - ./data_files:/app/data_files
     ports:
-      - "8000:8000"  # Expose Django app
+      - "8000:8000"
     depends_on:
-      - helsinki-nlp  # Ensure the translator service starts first
+      - helsinki-nlp
+    command: python manage.py runserver 0.0.0.0:8000

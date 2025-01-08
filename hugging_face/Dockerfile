@@ -15,5 +15,3 @@ COPY translate.py /app/translate.py
 WORKDIR /app
 
 EXPOSE 8001
-
-ENTRYPOINT ["uvicorn", "translate:app", "--host", "0.0.0.0", "--port", "8001"]

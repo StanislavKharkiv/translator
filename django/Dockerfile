@@ -15,6 +15,3 @@ COPY . ./app
 
 # Expose port 8000 for Django
 EXPOSE 8000
-
-# Start Django server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
