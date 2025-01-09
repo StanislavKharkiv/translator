@@ -4,10 +4,11 @@ services:
     volumes:
       - ./hugging_face:/app
       - ./data_files:/app/data_files
+      - ./transformers_models:/root/.cache/huggingface
     environment:
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
-    command: uvicorn translate:app --host 0.0.0.0 --port 8001 --reload
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
 
   django:
     build:
