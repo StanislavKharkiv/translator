@@ -21,3 +21,16 @@ services:
     depends_on:
       - helsinki-nlp
     command: python manage.py runserver 0.0.0.0:8000
+
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend/translator_client:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - django
+    command: npm run dev
+    environment:
+      - NODE_ENV=development
