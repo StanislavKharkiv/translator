@@ -5,13 +5,8 @@ FROM huggingface/transformers-pytorch-cpu
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-# Install required libraries
 RUN pip install fastapi uvicorn sentencepiece
 
-# Copy the translation script
-COPY translate.py /app/translate.py
-
-# Set the working directory
 WORKDIR /app
 
 EXPOSE 8001
