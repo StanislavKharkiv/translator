@@ -1,9 +1,10 @@
-import styles from "./page.module.scss";
+import Translator from '@/components/translator/Translator'
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <div>
       <h1>Translator</h1>
+      <Translator />
     </div>
-  );
+  )
 }
