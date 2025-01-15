@@ -4,3 +4,4 @@ fastapi
 uvicorn
 requests
 sentencepiece
+django-cors-headers

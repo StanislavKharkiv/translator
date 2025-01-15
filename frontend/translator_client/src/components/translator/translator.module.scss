@@ -1,0 +1,68 @@
+.translator {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    label {
+        font-size: 16px;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    select,
+    textarea {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: vertical;
+        max-height: 300px;
+    }
+}
+
+.form_group {
+    margin-bottom: 15px;
+}
+
+.submit_btn {
+    min-width: 150px;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #45a049;
+    }
+
+    &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+}
+
+.translation_result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e7f7e7;
+    border-radius: 4px;
+    border: 1px solid #d0f0d0;
+}
+
+.error_message {
+    margin: 10px 0;
+    color: red;
+    font-size: 14px;
+}
